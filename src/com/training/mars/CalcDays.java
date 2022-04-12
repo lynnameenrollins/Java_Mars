@@ -1,33 +1,29 @@
 package com.training.mars;
 
-import java.util.Scanner;
+import javax.swing.Spring;
 
-public class DaysInMonth {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
-
-		//user input for month
-		System.out.println("Input month number: ");
-		int month= scanner.nextInt();
-
-		//user input for year
-		System.out.println("Input year: ");
-		int year= scanner.nextInt();
-
-		//calcDyas as a function in DaysInMonth
-		//calcDays(month, year);
+public class CalcDays {
+		private int month;
+		private int year;
+		public int getMonth() {
+			return month;
+		}
+		public void setMonth(int month) {
+			this.month = month;
+		}
+		public int getYear() {
+			return year;
+		}
+		public void setYear(int year) {
+			this.year = year;
+		}
+		public CalcDays(int month, int year) {
 		
-		//Wanted to practice writing using a separate class.
-		CalcDays daysInMonth  = new CalcDays(month, year);
+			this.month = month;
+			this.year = year;
+		}
 		
-		System.out.println(daysInMonth.getDaysInMonth());
-
-	}
-
-	//this code is not called when using the CalcDays Class, but I left it here just to have the example
-	private static void calcDays(int month, int year) {
+		public String getDaysInMonth() {
 		String monthName;
 		int noDays = 0;
 	
@@ -78,7 +74,6 @@ public class DaysInMonth {
 		break;
 		
 		}
-		System.out.println(monthName +" " + year + " has " + noDays + " days.");
-
-	}
+		return monthName +" " + year + " has " + noDays + " days.";
+		}
 }
