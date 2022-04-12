@@ -32,8 +32,18 @@ public class MyClass {
 			p2.setHeight(190);
 			p2.setWeight(89);
 			System.out.println(p2.getPersonInfo());
-		
-		
+			
+			Person p3 = new Person(165, 70);
+			System.out.println(p3.getPersonInfo());
+			
+			Employee e1 = new Employee();
+			e1.setFirstName("Peter");
+			e1.setLastName("Pan");
+			e1.setTitle("Resident Child");
+			e1.setEmpNumber(1234);
+			e1.setSalary(55000.00);
+			
+			System.out.println(e1.displayEmployeeInfo());
 		
 		}
 
