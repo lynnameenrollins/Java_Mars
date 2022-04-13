@@ -33,7 +33,9 @@ public class CalcDays {
 			break;
 		case 2:  monthName = "February";
 			//check for leap year
-			if (year%4 == 0) {
+			if  (((year % 4 == 0) && 
+                    !(year % 100 == 0))
+                    || (year % 400 == 0)) {
 				noDays = 29;
 			}
 			else {
