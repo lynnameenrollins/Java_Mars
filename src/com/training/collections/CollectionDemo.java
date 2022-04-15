@@ -1,6 +1,7 @@
 package com.training.collections;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -67,7 +68,8 @@ public class CollectionDemo {
 
 		System.out.println("------------STUDENT SET EXAMPLE- FIX DUPLICATE--------------------------------");
 		
-		Set <Student> studentSet = new HashSet<>();
+//		Set <Student> studentSet = new HashSet<>();
+		List <Student> studentSet = new ArrayList<>();
 		
 		
 		studentSet.add(stud1);
@@ -79,10 +81,19 @@ public class CollectionDemo {
 		
 		Student stud5 = new Student("Sarah", 12, "B");
 		Student stud6 = new Student("Lisa", 15, "B");
-
-		checkForNewStudent(stud5, studentSet);
-		checkForNewStudent(stud6, studentSet);
+		studentSet.add(stud5);
+		studentSet.add(stud6);
 		
+		//This is my solution, but there was a simpler way!!!
+		//With the use of override of HashCode and Equals which can be auto generated in Student.
+		//		checkForNewStudent(stud5, studentSet);
+		//		checkForNewStudent(stud6, studentSet);
+		
+		//If we want to sort, make it a list/ArryList
+		//List <Student> studentSet = new ArrayList<>();
+		//Collections.sort(studentSet);
+		
+		Collections.sort(studentSet, new NameComparator());
 		for (Student student: studentSet) {
 			System.out.println(student.getName());
 		}
@@ -95,7 +106,20 @@ public class CollectionDemo {
 			names2.add("Pete");
 			
 			for(String name: names2) {
-				System.out.println(name);}
+				System.out.println(name);
+				}
+			
+			
+			System.out.println("------------TREE SET SORTING--------------------------------");
+			Set <String> names21 = new TreeSet<>();
+			names21.add("Zak");
+			names21.add("Bruce");
+			names21.add("Adam");
+			names21.add("Pete");
+			
+			for(String name: names21) {
+				System.out.println(name);
+				}
 			}
 	
 			private static void checkForNewStudent(Student newStudent, Set<Student> studentSet) {
