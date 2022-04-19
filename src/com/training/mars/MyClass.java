@@ -2,13 +2,35 @@ package com.training.mars;
 
 public class MyClass {
 	static int age; //if the variable is static and not local it does not need to be initialized
-	public static void main(String args[]) {
+	public static void main(String args[])  {
 		System.out.println("This is my first JAVA file");
 		System.out.println("And here is another line of code");
 
 		byte number = 12;
 
 		System.out.println("Byte Value is" + number);
+		
+		int num1 = 8;
+		int result = 0;
+		String str = null;
+		try {
+			//result = num1/0; //runtime exception
+			str.length();
+		}
+		catch(ArithmeticException e) {
+			System.out.println("Cannot divide by zero");
+		}
+		catch(NullPointerException e) {
+			System.out.println("String cannot be null.  " + e.getMessage());
+			e.printStackTrace();
+		}
+		catch (Exception e) {
+			System.out.println("Generic Exception");
+		}
+		
+		
+		
+		System.out.println("Result is " + result);
 		short shortvalue = 48;
 		int intvalue = 89;
 		byte newByte = (byte)intvalue; //Explicit typecasting
@@ -44,6 +66,18 @@ public class MyClass {
 		e1.setSalary(55000.00);
 
 		System.out.println(e1.displayEmployeeInfo());
+		
+		try {
+			if(p1.getWeight() > 75) {
+			throw new MyException("Thrown Exception: Weight should be less than 75 in this category");
+			}
+		}
+		catch(MyException e) {
+			System.out.println(e.getMessage());
+		}
+		finally {
+			System.out.println("Finally block will always execute!!!");
+		}
 
 	}
 
