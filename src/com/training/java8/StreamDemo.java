@@ -1,9 +1,14 @@
 package com.training.java8;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import com.training.collections.Student;
+import com.training.mars.Employee;
 
 public class StreamDemo {
 	public static void main(String args [ ] ){
@@ -63,8 +68,82 @@ public class StreamDemo {
 	    String concatedOutput = strings.stream().filter(x-> x.contains("P")).reduce(" ", (ans, y)-> ans + y);
 
 	    System.out.println(concatedOutput);
-	}
+	    
+	    List<String> letters = Arrays.asList("a", "b", "c", "d", "e");
+	    String result = letters
+	    		  .stream()
+	    		  .reduce(
+	    		    "", (partialString, element) -> partialString.toUpperCase() + element.toUpperCase());
+	    
+	    System.out.println("Result: " + result);
+	    
+	    List<Integer> ages = Arrays.asList(25, 30, 45, 28, 32);
+	    int computedAges = ages.parallelStream().reduce(0, (a, b) -> a + b, Integer::sum);
+	    System.out.println(computedAges);
+	    
+	    //for Employee class
+
+	List<Employee> studentList = new ArrayList<>();	
+	Employee emp1=  new Employee("Peter", "Pan", "CEO", 100000.00, 1234);
+	Employee emp2=   new Employee("Harry", "Potter", "Wizard", 200000.00, 1238);
+	Employee emp3=  new Employee("Hermione", "Granger", "Muggle", 250000.00, 1245) ;
+	Employee emp4=  new Employee("John", "Rockefeller", "Manager", 70000.00, 2347);
+	Employee emp5=  new Employee("John", "Goodman", "Technician", 50000.00, 2397);
+	Employee emp6=  new Employee("Jennifer", "Smith", "Manager", 120001.00, 5347);
+
+	List<Employee> empList = new ArrayList<>();	
+	 empList.add(emp1);
+	 empList.add(emp2);	
+	 empList.add(emp3);
+	 empList.add(emp4);
+	 empList.add(emp5);
+	 empList.add(emp6);
+	 
+	 System.out.println("----Employee Making over 100,000---");
+	 List<Employee> empFilter100K =empList.stream().filter(x->x.getSalary()>100000).collect(Collectors.toList());
+		for (Employee emp: empFilter100K) {
+			System.out.println("Salary: $" +emp.getSalary() + "   " + emp.getFirstName() +" " +  emp.getLastName() );
+		}
+		
+		System.out.println("----Employee Sorted by Salary---");
+		List<Employee> sortedEmpbySalary =empList.stream().sorted(Comparator.comparingDouble(Employee:: getSalary)).collect(Collectors.toList());
+		for (Employee Emp: sortedEmpbySalary) {
+			System.out.println("Salary: $" +Emp.getSalary() + "   " + Emp.getFirstName() +" " +  Emp.getLastName() );
+		}
+		System.out.println("----Employee Sorted by Last Name---");
+		List<Employee> sortedEmpbyLastName =empList.stream().sorted(Comparator.comparing(Employee:: getLastName)).collect(Collectors.toList());
+		for (Employee Emp: sortedEmpbyLastName) {
+			System.out.println(Emp.getLastName() + "  Salary: $" +Emp.getSalary());
+		}
+		System.out.println("----Employee Sorted by Empoyee Number---");
+		List<Employee> sortedEmpbyEmpNumber =empList.stream().sorted(Comparator.comparingInt(Employee:: getEmpNumber)).collect(Collectors.toList());
+		
+		
+		
+		for (Employee Emp: sortedEmpbyEmpNumber) {
+			System.out.println(Emp.getEmpNumber() + ": " + Emp.getLastName() + "  Salary: $" +Emp.getSalary());
+		}
+		
+		System.out.println("----Using forEach on Employee to get salary over $150000---");
+		empList.stream().filter(x->x.getSalary()>150000).forEach(emp -> System.out.println(emp.getLastName() + " Salary: $" + emp.getSalary()));
+		
+		int totalSalaries = empList.stream().reduce(0, (ans, emp)->ans + (int)emp.getSalary(), Integer:: sum);
+		System.out.println("Total of all salaries: " + totalSalaries);
+		
+		double totalSalariesDouble = empList.stream().reduce(0.0, (ans, emp)->ans + emp.getSalary(), Double:: sum);
+		System.out.println("Total of all salaries: " + totalSalariesDouble);
+
+
+		List<String> capEmp =empList.stream().map(a -> "Hello " + a.getFirstName()+  ", Welcome to Mars! ").collect(Collectors.toList());
+		System.out.println(capEmp);
+		
+		
+		//Printing using forEach
+		System.out.println("----Using Map and For Each to print a welcome message---");
+		empList.stream().map(a -> "Hello " + a.getFirstName()+  ", Welcome to Mars! ").forEach(System.out:: println);
 }
+}
+
 
 //Intermediate operation: map, filter, sorted
 //Terminal operation: collect, forEach, reduce
